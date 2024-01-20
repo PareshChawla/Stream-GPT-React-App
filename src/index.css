@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Your CSS or in a style block in your component */
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px #333333 inset !important;
+    -webkit-text-fill-color: white !important;
+    caret-color: white !important;
+  }
+  
