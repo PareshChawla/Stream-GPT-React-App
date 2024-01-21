@@ -1,16 +1,42 @@
 import {
   createUserWithEmailAndPassword,
+  onAuthStateChanged,
   updateProfile,
   signInWithEmailAndPassword,
+  setPersistence,
+  browserSessionPersistence,
 } from "firebase/auth";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Header from "./Header";
 import { checkValidData } from "../utils/validate";
 import { auth } from "../utils/firebase";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
+import { Oval } from "react-loader-spinner";
 
 const Login = () => {
   const [isSignedIn, setIsSignedIn] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+
+    setPersistence(auth, browserSessionPersistence);
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in, but only redirect if they clicked "Sign In"
+        if (isSignedIn) {
+          navigate("/browse");
+        }
+      } else {
+      }
+    });
+
+    return () => unsubscribe();
+  }, [auth, navigate, isSignedIn]);
 
   const name = useRef(null);
   const email = useRef(null);
@@ -32,14 +58,19 @@ const Login = () => {
   };
 
   const handleButtonClick = () => {
+    setIsLoading(true);
     if (!isSignedIn && (!name.current || !name.current.value.trim())) {
       setErrorMessage("Please enter your Full Name.");
+      setIsLoading(false);
       return;
     }
     const message = checkValidData(email.current.value, password.current.value);
     setErrorMessage(message);
 
-    if (message) return;
+    if (message) {
+      setIsLoading(false);
+      return;
+    }
 
     if (!isSignedIn) {
       createUserWithEmailAndPassword(
@@ -52,7 +83,17 @@ const Login = () => {
           const user = userCredential.user;
           updateProfile(user, {
             displayName: name.current.value,
-          });
+          })
+            .then(() => {
+              const { uid, email, displayName } = auth.currentUser;
+              dispatch(
+                addUser({ uid: uid, email: email, displayName: displayName })
+              );
+            })
+            .catch((error) => {
+              const errorCode = error.code;
+              setErrorMessage(errorCode);
+            });
           if (name.current) name.current.value = "";
           if (email.current) email.current.value = "";
           if (password.current) password.current.value = "";
@@ -66,6 +107,9 @@ const Login = () => {
               "The email address is already in use. Please use a different email.";
           }
           setErrorMessage(errorMessage);
+        })
+        .finally(() => {
+          setIsLoading(false);
         });
     } else {
       signInWithEmailAndPassword(
@@ -74,8 +118,6 @@ const Login = () => {
         password.current.value
       )
         .then((userCredential) => {
-          const user = userCredential.user;
-          console.log(user);
           if (email.current) email.current.value = "";
           if (password.current) password.current.value = "";
         })
@@ -87,6 +129,9 @@ const Login = () => {
               "Invalid credentials. Please check your email and password.";
           }
           setErrorMessage(errorMessage);
+        })
+        .finally(() => {
+          setIsLoading(false);
         });
     }
   };
@@ -132,10 +177,22 @@ const Login = () => {
             />
             <p className="text-red-500 text-lg">{errorMessage}</p>
             <button
-              className="bg-[#e50914] w-full py-3 rounded-md text-white font-medium"
+              className={`bg-[#e50914] w-full py-3 rounded-md text-white flex justify-center items-center font-medium relative ${
+                isLoading ? "opacity-50 cursor-not-allowed" : ""
+              }`}
               onClick={handleButtonClick}
+              disabled={isLoading}
             >
-              {isSignedIn ? "Sign In" : "Sign Up"}
+              {isLoading ? (
+                <Oval
+                  visible={true}
+                  height="20"
+                  width="20"
+                  color="#fff"
+                  ariaLabel="oval-loading"
+                />
+              ) : null}
+              {isLoading ? null : isSignedIn ? "Sign In" : "Sign Up"}
             </button>
 
             {isSignedIn ? (
