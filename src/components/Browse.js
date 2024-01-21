@@ -1,12 +1,10 @@
-import React from 'react'
-import Header from './Header';
+import React from "react";
+import BrowseHeader from "./BrowseHeader";
+import { useSelector } from "react-redux";
 
 const Browse = () => {
-  return (
-    <div className='flex'>
-    <Header />
-    </div>
-  )
-}
+  const user = useSelector((store) => store.user);
+  return <div className="flex">{user && <BrowseHeader />}</div>;
+};
 
-export default Browse
+export default Browse;
