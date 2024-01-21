@@ -2,12 +2,12 @@ import ErrorImg from "../assets/images/error.jpg";
 import { useRouteError } from "react-router-dom";
 
 const Error = () => {
-  const err = useRouteError();
+  const error = useRouteError();
   return (
     <>
       <div className="flex flex-col text-center text-red-500">
         <h1 className="text-4xl mt-8 mb-6">Oops!!!</h1>
-        <h2 className="text-2xl ">{err.status + " : " + err.statusText}</h2>
+        <h2 className="text-2xl ">{error.name + " : " + error.message}</h2>
         <img
           src={ErrorImg}
           loading="lazy"
