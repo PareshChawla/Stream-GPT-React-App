@@ -31,8 +31,7 @@ const Login = () => {
         if (isSignedIn) {
           navigate("/browse");
         }
-      } else {
-      }
+      } 
     });
 
     return () => unsubscribe();
@@ -139,15 +138,15 @@ const Login = () => {
   return (
     <div>
       <Header />
-      <div className="absolute">
+      <div className="fixed w-full h-full top-0 left-0">
         <img
-          className="brightness-50"
+          className="brightness-50 w-full h-full object-cover"
           src="https://assets.nflxext.com/ffe/siteui/vlv3/16006346-87f9-4226-bc25-a1fb346a2b0c/9662d0fd-0547-4665-b887-771617268815/IN-en-20240115-popsignuptwoweeks-perspective_alpha_website_large.jpg"
           alt="netflix-bg"
         />
       </div>
       <div className="min-h-screen w-[40%] ml-[30%] absolute flex justify-center items-center">
-        <div className="bg-black bg-opacity-75 relative h-[100vh] mt-[13vh] mx-8 w-[75%] py-10 px-16">
+        <div className="bg-black bg-opacity-75 relative h-[90vh] mt-[13vh] mx-8 w-[75%] py-10 px-16">
           <form
             className="h-[70vh] w-[100%] mt-6"
             onSubmit={(e) => e.preventDefault()}
@@ -222,6 +221,20 @@ const Login = () => {
             )}
           </form>
         </div>
+      </div>
+      <div className="flex justify-center bg-black bg-opacity-75 h-[45vh] w-full text-[#737373] absolute mt-[120vh]">
+      <div className="w-[70%] h-full">
+        <h1 className="my-8">Questions? Call 7972908413</h1>
+        <ul className="text-xs grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-14">
+          <li>FAQ</li>
+          <li>Help Centre</li>
+          <li>Terms of Use</li>
+          <li>Privacy</li>
+          <li>Cookie Preferences</li>
+          <li>Corporate Information</li>
+        </ul>
+        <p className="text-sm text-center my-24">&copy; Copyright 2024 Paresh Chawla</p>
+      </div>
       </div>
     </div>
   );
