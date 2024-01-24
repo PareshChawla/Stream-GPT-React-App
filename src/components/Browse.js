@@ -1,10 +1,20 @@
 import React from "react";
 import BrowseHeader from "./BrowseHeader";
-import { useSelector } from "react-redux";
+import useNowPlayingMovies from "../hooks/useNowPlayingMovies";
+import MainContainer from "./MainContainer";
+import SecondaryContainer from "./SecondaryContainer";
 
 const Browse = () => {
-  const user = useSelector((store) => store.user);
-  return <div className="flex">{user && <BrowseHeader />}</div>;
+  useNowPlayingMovies();
+  return (
+    <>
+      <div className="flex">
+        <BrowseHeader />
+      </div>
+      <MainContainer />
+      <SecondaryContainer />
+    </>
+  );
 };
 
 export default Browse;
