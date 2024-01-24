@@ -31,8 +31,8 @@ const BrowseHeader = () => {
   };
   return (
     <>
-        <div className="h-[10vh] absolute w-full z-10 flex flex-row items-center bg-gradient-to-b from-black justify-between">
-        <img className="h-8 ml-9" src={logo} alt="logo" />
+        <div className="h-[10vh] absolute w-full z-20 flex flex-row items-center bg-gradient-to-b from-black justify-between">
+        <img className="h-8 ml-12" src={logo} alt="logo" />
           <div className="flex mr-5 items-center">
             <img className="h-8 w-8" src={avatar} alt="avatar" />
             <div className="relative">
