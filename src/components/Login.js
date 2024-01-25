@@ -145,38 +145,38 @@ const Login = () => {
           alt="netflix-bg"
         />
       </div>
-      <div className="min-h-screen w-[40%] ml-[30%] absolute flex justify-center items-center">
-        <div className="bg-black bg-opacity-75 relative h-[90vh] mt-[13vh] mx-8 w-[75%] py-10 px-16">
+      <div className="md:min-h-screen md:w-[40%] md:ml-[30%] absolute flex justify-center items-center">
+        <div className="bg-black bg-opacity-75 w-full relative h-[80vh] mx-4 px-4 py-5 mt-[11vh] md:h-[90vh] md:mt-[13vh] md:mx-8 md:w-[75%] md:py-10 md:px-16">
           <form
-            className="h-[70vh] w-[100%] mt-6"
+            className="h-[70vh] w-[100%] mt-4 md:mt-6"
             onSubmit={(e) => e.preventDefault()}
           >
-            <h1 className="text-3xl text-white font-medium mb-8">
+            <h1 className="text-3xl text-white font-medium mb-10 md:mb-8">
               {isSignedIn ? "Sign In" : "Sign Up"}
             </h1>
             {!isSignedIn && (
               <input
                 ref={name}
-                className="w-full py-3.5 rounded-md placeholder:text-[#8c8c8c] text-white bg-[#333333] mb-4 text-start px-4 text-md required:border-red-500"
+                className="w-full py-4 md:py-3.5 rounded-md placeholder:text-[#8c8c8c] text-white bg-[#333333] mb-4 text-start px-4 text-sm md:text-md required:border-red-500"
                 type="text"
                 placeholder="Full Name"
               />
             )}
             <input
               ref={email}
-              className="w-full py-3.5 rounded-md placeholder:text-[#8c8c8c] text-white bg-[#333333] mb-4 text-start px-4 text-md invalid:border invalid:border-red-500 autofill:bg-transparent"
+              className="w-full py-4 md:py-3.5 rounded-md placeholder:text-[#8c8c8c] text-white bg-[#333333] mb-4 text-start px-4 text-sm md:text-md invalid:border invalid:border-red-500 autofill:bg-transparent"
               type="email"
               placeholder="Email"
             />
             <input
               ref={password}
-              className="w-full py-3.5 rounded-md placeholder:text-[#8c8c8c] text-white bg-[#333333] mb-10 text-start px-4 text-md"
+              className="w-full py-4 md:py-3.5 rounded-md placeholder:text-[#8c8c8c] text-white bg-[#333333] mb-10 text-start px-4 text-sm md:text-md"
               type="password"
               placeholder="Password"
             />
             <p className="text-red-500 text-lg">{errorMessage}</p>
             <button
-              className={`bg-[#e50914] w-full py-3 rounded-md text-white flex justify-center items-center font-medium relative ${
+              className={`bg-[#e50914] w-full py-3.5 md:py-3 rounded-md text-white flex justify-center items-center font-medium relative ${
                 isLoading ? "opacity-50 cursor-not-allowed" : ""
               }`}
               onClick={handleButtonClick}
