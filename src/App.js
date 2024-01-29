@@ -5,7 +5,7 @@ import Browse from "./components/Browse";
 import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
 import ProtectedRoute from "./components/ProtectedRoute";
-import GptSearch from "./components/GptSearch";
+import GPT from "./components/GPT";
 
 const router = createBrowserRouter([
   // Import your routes here instead of defining them in Body
@@ -27,7 +27,7 @@ const router = createBrowserRouter([
     path: "/search",
     element: (
       <ProtectedRoute>
-        <GptSearch />
+        <GPT />
       </ProtectedRoute>
     ), // Assuming Browse component is accessible here
     errorElement: <Error />,
