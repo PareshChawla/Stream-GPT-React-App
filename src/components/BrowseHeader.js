@@ -41,12 +41,12 @@ const BrowseHeader = () => {
           </ul>
         <div className="flex mr-5 items-center">
           <Link to="/search">
-            <div className="flex items-center mr-7 cursor-pointer ">
-              <img className="h-4 w-4 mr-3" src={Search} alt="search" />
-              <h1 className="text-white hover:text-gray-400">Search</h1>
+            <div className="flex items-center mr-7 cursor-pointer">
+              <img className="h-4 w-4 mr-3" src={Search} alt="avatar" />
+              <h1 className="text-white text-lg">Search</h1>
             </div>
           </Link>
-          <img className="h-7 w-7" src={avatar} alt="avatar" />
+          <img className="h-8 w-8" src={avatar} alt="avatar" />
           <div className="relative">
             {toggleState ? (
               <div
