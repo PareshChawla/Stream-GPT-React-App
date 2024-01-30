@@ -33,6 +33,12 @@ const BrowseHeader = () => {
     <>
       <div className="h-[10vh] absolute w-full z-20 flex flex-row items-center bg-gradient-to-b from-black justify-between">
         <Link to="/browse"><img className="h-8 ml-12" src={logo} alt="logo" /></Link>
+          <ul className="flex content-start w-1/2 text-white items-center text-sm mr-[16%] gap-8">
+            <Link to="/browse" className="hover:text-gray-400">Home</Link>
+            <Link className="hover:text-gray-400">TV Show</Link>
+            <Link className="hover:text-gray-400">Movies</Link>
+            <Link className="hover:text-gray-400">New & Popular</Link>
+          </ul>
         <div className="flex mr-5 items-center">
           <Link to="/search">
             <div className="flex items-center mr-7 cursor-pointer">
