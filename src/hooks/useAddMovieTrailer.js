@@ -25,7 +25,7 @@ const useAddMovieTrailer = (movieID) => {
       
         useEffect(() => {
           !trailerVideo && getMovieVideo();
-        }, []);
+        }, [trailerVideo, getMovieVideo]);
 }
 
 export default useAddMovieTrailer;
