@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { addGptMovieResult, removeGptMovieResult } from "../utils/gptSlice";
 import Cross from "../assets/images/cross.png";
 import ShimmerGptSearch from "./ShimmerGptSearch";
+import BrowseFooter from "./BrowseFooter";
 
 const GptSearch = () => {
   const[crossImg, setCrossImg] = useState(false);
@@ -49,7 +50,6 @@ const GptSearch = () => {
       setGptError(true);
     }
     const gptMovies = gptResults.choices[0]?.message?.content.split(", ");
-    console.log(gptMovies);
 
     const promiseArray = gptMovies.map((movie) => {
       return searchMovieTMDB(movie);
