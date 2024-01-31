@@ -1,14 +1,14 @@
 import React from 'react'
 import GptSearch from './GptSearch'
 import GptMovieSuggestion from './GptMovieSuggestion'
-import BrowseFooter from './BrowseFooter';
+import SearchFooter from './SearchFooter';
 
 const GPT = () => {
   return (
     <div className='absolute w-full'>
         <GptSearch />
         <GptMovieSuggestion />
-        <BrowseFooter />
+        <SearchFooter />
     </div>
   )
 }

@@ -8,13 +8,13 @@ const MainContainer = () => {
 
   if (!movies) return;
 
-  const { title, overview, id } = movies[0];
+  const { title, overview, id, backdrop_path, genre_ids } = movies[0];
 
   return (
     <>
       <div>
-        <VideoTitle title={title} overview={overview} />
-        <VideoBackground movieID={id} />
+        <VideoTitle title={title} overview={overview} genreIDS={genre_ids} />
+        <VideoBackground movieID={id} backdropPath={backdrop_path} />
       </div>
     </>
   );

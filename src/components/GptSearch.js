@@ -7,10 +7,9 @@ import { useDispatch } from "react-redux";
 import { addGptMovieResult, removeGptMovieResult } from "../utils/gptSlice";
 import Cross from "../assets/images/cross.png";
 import ShimmerGptSearch from "./ShimmerGptSearch";
-import BrowseFooter from "./BrowseFooter";
 
 const GptSearch = () => {
-  const[crossImg, setCrossImg] = useState(false);
+  const [crossImg, setCrossImg] = useState(false);
   const [showShimmer, setShowShimmer] = useState(false);
   const searchText = useRef(null);
   const dispatch = useDispatch();
@@ -69,7 +68,7 @@ const GptSearch = () => {
   const handleInputChange = () => {
     const inputText = searchText.current.value.trim();
 
-    if(inputText) {
+    if (inputText) {
       setCrossImg(true);
     }
 
@@ -87,60 +86,67 @@ const GptSearch = () => {
 
   return (
     <>
-    <div className="absolute bg-gradient-to-b from-blue-600 via-black to-black w-full object-cover">
-      <BrowseHeader />
-      <div className="min-h-screen flex flex-col items-center pt-[8%]">
-        <h1 className="text-white text-5xl font-bold">
-          Unlock Cinematic Wonders with AI Magic!
-        </h1>
-        <p className="text-gray-400 text-lg py-3">
-          Curated Selections for a Memorable Family Movie Night
-        </p>
-        <form
-          className="flex py-5 w-full h-28 justify-center"
-          onSubmit={(e) => {
-            e.preventDefault();
-          }}
-        >
-          <input
-            ref={searchText}
-            type="text"
-            className="w-[85%] ml-12 mr-6 rounded-md bg-gray-600 text-lg px-16 bg-contain bg-no-repeat text-white relative"
-            placeholder="Search movies, shows and more"
-            style={{
-              backgroundImage: `url(${Search})`,
-              backgroundSize: "25px",
-              backgroundPosition: "20px center",
-            }}
-            onChange={handleInputChange}
-          />
-          {
-            crossImg &&
-            <img
-              className="absolute h-6 w-6 left-[85%] top-[37%] cursor-pointer"
-              src={Cross}
-              alt="clear"
-              onClick={handleClearClick}
-            />
-          }
-          <button
-            className="w-[6%] mr-12 rounded-md bg-red-800 text-white hover:bg-red-900"
-            onClick={handleGptSearchClick}
-          >
-            Search
-          </button>
-        </form>
-        {gptError && (
-          <p className="text-red-500 text-lg">
-            GPT API Failed!! Sorry for the inconvenience
+      <div className="absolute bg-gradient-to-b from-blue-600 via-black to-black w-full object-cover">
+        <BrowseHeader />
+        <div className="min-h-screen flex flex-col items-center pt-[20%] lg:pt-[8%]">
+          <h1 className="text-white text-xl text-center lg:text-5xl font-bold">
+            Unlock Cinematic Wonders with AI Magic!
+          </h1>
+          <p className="text-gray-400 text-xs lg:text-lg py-2 lg:py-3">
+            Curated Selections for a Memorable Family Movie Night
           </p>
-        )}
+          <form
+            className="flex py-5 w-full h-28 justify-center"
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
+          >
+            <input
+              ref={searchText}
+              type="text"
+              className="hidden lg:block w-[85%] ml-12 mr-6 rounded-md bg-gray-600 text-lg px-16 bg-contain bg-no-repeat text-white relative"
+              placeholder="Search movies, shows and more"
+              style={{
+                backgroundImage: `url(${Search})`,
+                backgroundSize: "25px",
+                backgroundPosition: "20px center",
+              }}
+              onChange={handleInputChange}
+            />
+            <input
+              ref={searchText}
+              type="text"
+              className="block lg:hidden w-[75%] ml-4 mr-3 lg:mr-6 rounded-md bg-gray-600 text-md px-8 text-white"
+              placeholder="Search movies and shows"
+              onChange={handleInputChange}
+            />
+            {crossImg && (
+              <img
+                className="hidden lg:block absolute lg:h-6 lg:w-6 lg:left-[85%] lg:top-[37%] cursor-pointer"
+                src={Cross}
+                alt="clear"
+                onClick={handleClearClick}
+              />
+            )}
+            <button
+              className="w-[25%] lg:w-[6%] mr-4 lg:mr-12 rounded-md bg-red-800 text-white hover:bg-red-900"
+              onClick={handleGptSearchClick}
+            >
+              Search
+            </button>
+          </form>
+          {gptError && (
+            <p className="text-red-500 text-lg">
+              GPT API Failed!! Sorry for the inconvenience
+            </p>
+          )}
+        </div>
       </div>
-    </div>
-    {showShimmer && <div className="text-white text-7xl w-full h-full text-center mt-[25%] relative z-100">
-        <ShimmerGptSearch />
-      </div>}
-  
+      {showShimmer && (
+        <div className="mt-[25%] relative z-100">
+          <ShimmerGptSearch />
+        </div>
+      )}
     </>
   );
 };

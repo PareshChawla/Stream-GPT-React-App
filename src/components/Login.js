@@ -167,12 +167,14 @@ const Login = () => {
               className="w-full py-4 md:py-3.5 rounded-md placeholder:text-[#8c8c8c] text-white bg-[#333333] mb-4 text-start px-4 text-sm md:text-md invalid:border invalid:border-red-500 autofill:bg-transparent"
               type="email"
               placeholder="Email"
+              value="pareshchawla.56@gmail.com"
             />
             <input
               ref={password}
               className="w-full py-4 md:py-3.5 rounded-md placeholder:text-[#8c8c8c] text-white bg-[#333333] mb-10 text-start px-4 text-sm md:text-md"
               type="password"
               placeholder="Password"
+              value="Paresh1234"
             />
             <p className="text-red-500 text-lg">{errorMessage}</p>
             <button
