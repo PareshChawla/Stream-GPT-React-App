@@ -1,21 +1,25 @@
 import {
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  setPersistence,
   browserSessionPersistence,
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  setPersistence,
+  updateProfile,
 } from "firebase/auth";
 import React, { useEffect, useRef, useState } from "react";
 import Header from "./Header";
 import { checkValidData } from "../utils/validate";
 import { auth } from "../utils/firebase";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser } from "../utils/userSlice";
 import { Oval } from "react-loader-spinner";
 import Footer from "./Footer";
 
-const Login = () => {
+const Signup = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setPersistence(auth, browserSessionPersistence);
@@ -28,11 +32,17 @@ const Login = () => {
     return () => unsubscribe();
   }, [auth, navigate]);
 
+  const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
 
   const handleButtonClick = () => {
     setIsLoading(true);
+    if (!name.current || !name.current.value.trim()) {
+      setErrorMessage("Please enter your Full Name.");
+      setIsLoading(false);
+      return;
+    }
     const message = checkValidData(email.current.value, password.current.value);
     setErrorMessage(message);
 
@@ -40,21 +50,35 @@ const Login = () => {
       setIsLoading(false);
       return;
     } else {
-      signInWithEmailAndPassword(
+      createUserWithEmailAndPassword(
         auth,
         email.current.value,
         password.current.value
       )
         .then((userCredential) => {
-          if (email.current) email.current.value = "";
-          if (password.current) password.current.value = "";
+          // Signed up
+          const user = userCredential.user;
+          updateProfile(user, {
+            displayName: name.current.value,
+          })
+            .then(() => {
+              const { uid, email, displayName } = auth.currentUser;
+              dispatch(
+                addUser({ uid: uid, email: email, displayName: displayName })
+              );
+            })
+            .catch((error) => {
+              const errorCode = error.code;
+              setErrorMessage(errorCode);
+            });
+          navigate("/");
         })
         .catch((error) => {
           const errorCode = error.code;
           let errorMessage = error.message;
-          if (errorCode === "auth/invalid-credential") {
+          if (errorCode === "auth/email-already-in-use") {
             errorMessage =
-              "Invalid credentials. Please check your email and password.";
+              "The email address is already in use. Please use a different email.";
           }
           setErrorMessage(errorMessage);
         })
@@ -81,21 +105,25 @@ const Login = () => {
             onSubmit={(e) => e.preventDefault()}
           >
             <h1 className="text-3xl text-white font-medium mb-10 md:mb-8">
-              Sign In
+              Sign Up
             </h1>
+            <input
+              ref={name}
+              className="w-full py-4 md:py-3.5 rounded-md placeholder:text-[#8c8c8c] text-white bg-[#333333] mb-4 text-start px-4 text-sm md:text-md required:border-red-500"
+              type="text"
+              placeholder="Full Name"
+            />
             <input
               ref={email}
               className="w-full py-4 md:py-3.5 rounded-md placeholder:text-[#8c8c8c] text-white bg-[#333333] mb-4 text-start px-4 text-sm md:text-md invalid:border invalid:border-red-500 autofill:bg-transparent"
               type="email"
               placeholder="Email"
-              value="demo-user@gmail.com"
             />
             <input
               ref={password}
               className="w-full py-4 md:py-3.5 rounded-md placeholder:text-[#8c8c8c] text-white bg-[#333333] mb-10 text-start px-4 text-sm md:text-md"
               type="password"
               placeholder="Password"
-              value="Demo1234"
             />
             <p className="text-red-500 text-lg">{errorMessage}</p>
             <button
@@ -114,15 +142,16 @@ const Login = () => {
                   ariaLabel="oval-loading"
                 />
               ) : (
-                "Sign In"
+                "Sign up"
               )}
             </button>
+
             <div className="flex flex-row my-8 gap-2">
               <p className="text-[#737373] text-md">
-                New to StreamGPT?
-                <Link to="/signup">
+                Already an User?
+                <Link to="/">
                   <span className="text-white cursor-pointer ml-2 text-md">
-                    Sign up now.
+                    Click here to Sign In
                   </span>
                 </Link>
               </p>
@@ -135,4 +164,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;

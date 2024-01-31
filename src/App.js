@@ -6,12 +6,18 @@ import { Provider } from "react-redux";
 import appStore from "./utils/appStore";
 import ProtectedRoute from "./components/ProtectedRoute";
 import GPT from "./components/GPT";
+import Signup from "./components/SignUp";
 
 const router = createBrowserRouter([
   // Import your routes here instead of defining them in Body
   {
     path: "/",
     element: <Body />,
+    errorElement: <Error />, // Assuming Error component is accessible here
+  },
+  {
+    path: "/signup",
+    element: <Signup />,
     errorElement: <Error />, // Assuming Error component is accessible here
   },
   {
