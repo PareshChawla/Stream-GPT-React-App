@@ -7,7 +7,7 @@ const ShimmerGptSearch = () => {
           {Array(20)
             .fill("")
             .map((e, index) => (
-              <div className="w-36 h-56 lg:w-48 border lg:h-72 rounded-lg m-4 lg:m-10 bg-slate-900"></div>
+              <div key={index} className="w-36 h-56 lg:w-48 lg:h-72 rounded-lg m-4 lg:m-10 bg-slate-900"></div>
             ))}
         </div>
     </div>
