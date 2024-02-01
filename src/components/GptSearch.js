@@ -12,6 +12,7 @@ const GptSearch = () => {
   const [crossImg, setCrossImg] = useState(false);
   const [showShimmer, setShowShimmer] = useState(false);
   const searchText = useRef(null);
+  const searchTextMobile = useRef(null);  // Add a new ref for mobile input
   const dispatch = useDispatch();
   const [gptError, setGptError] = useState(false);
 
@@ -27,7 +28,7 @@ const GptSearch = () => {
   };
 
   const handleGptSearchClick = async () => {
-    const inputText = searchText.current.value.trim();
+    const inputText = searchText.current.value.trim() || searchTextMobile.current.value.trim();
 
     if (inputText === "") {
       return;
@@ -66,7 +67,7 @@ const GptSearch = () => {
   };
 
   const handleInputChange = () => {
-    const inputText = searchText.current.value.trim();
+    const inputText = searchText.current.value.trim() || searchTextMobile.current.value.trim();
 
     if (inputText) {
       setCrossImg(true);
@@ -82,6 +83,7 @@ const GptSearch = () => {
     setCrossImg(false);
     dispatch(removeGptMovieResult());
     searchText.current.value = "";
+    searchTextMobile.current.value = "";  // Clear the mobile input as well
   };
 
   return (
@@ -114,7 +116,7 @@ const GptSearch = () => {
               onChange={handleInputChange}
             />
             <input
-              ref={searchText}
+              ref={searchTextMobile}
               type="text"
               className="block lg:hidden w-[75%] ml-4 mr-3 lg:mr-6 rounded-md bg-gray-600 text-md px-8 text-white"
               placeholder="Search movies and shows"
@@ -129,7 +131,7 @@ const GptSearch = () => {
               />
             )}
             <button
-              className="w-[25%] lg:w-[6%] mr-4 lg:mr-12 rounded-md bg-red-800 text-white hover:bg-red-900"
+              className="w-[25%] lg:w-[6%] mr-4 lg:mr-12 rounded-md bg-[#E50914] text-white hover:bg-red-900"
               onClick={handleGptSearchClick}
             >
               Search

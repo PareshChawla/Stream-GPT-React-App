@@ -15,6 +15,9 @@ import Footer from "./Footer";
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [emailValue, setEmailValue] = useState(null);
+  const [passwordValue, setPasswordValue] = useState(null);
+  const [userChanged, setUserChanged] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -64,6 +67,16 @@ const Login = () => {
     }
   };
 
+  const handleEmailChange = (e) => {
+    setEmailValue(e.target.value);
+    setUserChanged(true);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPasswordValue(e.target.value);
+    setUserChanged(true);
+  };
+
   return (
     <div>
       <Header />
@@ -88,14 +101,16 @@ const Login = () => {
               className="w-full py-4 md:py-3.5 rounded-md placeholder:text-[#8c8c8c] text-white bg-[#333333] mb-4 text-start px-4 text-sm md:text-md invalid:border invalid:border-red-500 autofill:bg-transparent"
               type="email"
               placeholder="Email"
-              value="demo-user@gmail.com"
+              value={userChanged ? emailValue : "demo-user@gmail.com"}
+              onChange={handleEmailChange}
             />
             <input
               ref={password}
               className="w-full py-4 md:py-3.5 rounded-md placeholder:text-[#8c8c8c] text-white bg-[#333333] mb-10 text-start px-4 text-sm md:text-md"
               type="password"
               placeholder="Password"
-              value="Demo1234"
+              value={userChanged ? passwordValue : "Demo1234"}
+              onChange={handlePasswordChange}
             />
             <p className="text-red-500 text-lg">{errorMessage}</p>
             <button

@@ -7,6 +7,7 @@ import appStore from "./utils/appStore";
 import ProtectedRoute from "./components/ProtectedRoute";
 import GPT from "./components/GPT";
 import Signup from "./components/SignUp";
+import WatchTrailer from "./components/WatchTrailer";
 
 const router = createBrowserRouter([
   // Import your routes here instead of defining them in Body
@@ -39,8 +40,8 @@ const router = createBrowserRouter([
     errorElement: <Error />,
   },
   {
-    path: "/error",
-    element: <Error />,
+    path: "/watch/:watchId",
+    element: <WatchTrailer />,
   },
 ]);
 
