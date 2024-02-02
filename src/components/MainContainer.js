@@ -25,7 +25,12 @@ const MainContainer = () => {
   return (
     <>
       <div>
-        <VideoTitle movieID={id} title={title} overview={overview} genreIDS={genre_ids} />
+        <VideoTitle
+          movieID={id}
+          title={title}
+          overview={overview}
+          genreIDS={genre_ids}
+        />
         <VideoBackground movieID={id} backdropPath={backdrop_path} />
       </div>
     </>

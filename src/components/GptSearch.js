@@ -12,7 +12,7 @@ const GptSearch = () => {
   const [crossImg, setCrossImg] = useState(false);
   const [showShimmer, setShowShimmer] = useState(false);
   const searchText = useRef(null);
-  const searchTextMobile = useRef(null);  // Add a new ref for mobile input
+  const searchTextMobile = useRef(null); // Add a new ref for mobile input
   const dispatch = useDispatch();
   const [gptError, setGptError] = useState(false);
 
@@ -28,7 +28,8 @@ const GptSearch = () => {
   };
 
   const handleGptSearchClick = async () => {
-    const inputText = searchText.current.value.trim() || searchTextMobile.current.value.trim();
+    const inputText =
+      searchText.current.value.trim() || searchTextMobile.current.value.trim();
 
     if (inputText === "") {
       return;
@@ -67,7 +68,8 @@ const GptSearch = () => {
   };
 
   const handleInputChange = () => {
-    const inputText = searchText.current.value.trim() || searchTextMobile.current.value.trim();
+    const inputText =
+      searchText.current.value.trim() || searchTextMobile.current.value.trim();
 
     if (inputText) {
       setCrossImg(true);
@@ -83,7 +85,7 @@ const GptSearch = () => {
     setCrossImg(false);
     dispatch(removeGptMovieResult());
     searchText.current.value = "";
-    searchTextMobile.current.value = "";  // Clear the mobile input as well
+    searchTextMobile.current.value = ""; // Clear the mobile input as well
   };
 
   return (
