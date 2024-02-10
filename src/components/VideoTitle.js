@@ -27,9 +27,9 @@ const VideoTitle = ({ movieID, title, overview, genreIDS }) => {
 
   return (
     <>
-      <div className="flex flex-col justify-center lg:block pt-80 lg:pt-52 lg:ml-12 absolute z-10 text-white">
+      <div className="flex flex-col justify-center items-center w-full lg:w-[80%] lg:block pt-80 lg:pt-52 lg:ml-12 absolute z-10 text-white">
         <h1
-          className="text-2xl lg:text-6xl lg:text-start font-bold lg:ml-0 ml-12 w-[75%] lg:w-2/5 font-serif cursor-pointer lg:mb-3 text-center"
+          className="text-2xl lg:text-6xl lg:text-start font-bold lg:ml-0 w-[75%] lg:w-2/5 font-serif cursor-pointer lg:mb-3 text-center"
           onClick={handleTitleClick}
         >
           {title}

@@ -42,6 +42,7 @@ const router = createBrowserRouter([
   {
     path: "/watch/:watchId",
     element: <WatchTrailer />,
+    errorElement: <Error />,
   },
 ]);
 
