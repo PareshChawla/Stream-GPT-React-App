@@ -4,8 +4,19 @@
 
 /* Your CSS or in a style block in your component */
 input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px #333333 inset !important;
-    -webkit-text-fill-color: white !important;
-    caret-color: white !important;
-  }
+  -webkit-box-shadow: 0 0 0px 1000px #333333 inset !important;
+  -webkit-text-fill-color: white !important;
+  caret-color: white !important;
+}
 
+.slider-container {
+  position: relative;
+}
+
+.custom-prev-arrow,
+.custom-next-arrow {
+  /* Your arrow styles here */
+  position: absolute;
+  transform: translateY(-50%);
+  z-index: 1;
+}
